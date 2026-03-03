@@ -68,10 +68,9 @@ jobs:
           service: ${{ env.ECS_SERVICE_BACKEND }}
           cluster: ${{ env.ECS_CLUSTER }}
           region: ${{ env.AWS_REGION }}
-          echo "Deployment completed"
           wait-for-service-stability: true
-          
-                  
+
+
 #--------------------------------------------------
 # Build and Push Frontend
 #--------------------------------------------------
@@ -95,8 +94,16 @@ jobs:
         id: task-def-frontend
         uses: aws-actions/amazon-ecs-render-task-definition@v2
         with:
-          task-definition: ${{steps.task-def-frontend.outputs.task-definition }}
+          task-definition: ${{ env.ECS_TASK_DEFINATION_FRONTEND }}
+          container-name: ${{ env.CONTAINER_NAME_FRONTEND }}
+          image: ${{ steps.build-frontend.outputs.image }}
+
+      - name: Deploy Frontend Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
+        with:
+          task-definition: ${{ steps.task-def-frontend.outputs.task-definition }}
           service: ${{ env.ECS_SERVICE_FRONTEND }}
           cluster: ${{ env.ECS_CLUSTER }}
+          region: ${{ env.AWS_REGION }}
           wait-for-service-stability: true
       
