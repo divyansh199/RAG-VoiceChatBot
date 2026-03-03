@@ -70,7 +70,8 @@ jobs:
           region: ${{ env.AWS_REGION }}
           echo "Deployment completed"
           wait-for-service-stability: true
-         
+          
+                  
 #--------------------------------------------------
 # Build and Push Frontend
 #--------------------------------------------------
