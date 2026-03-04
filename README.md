@@ -4,10 +4,6 @@ A real-time voice-powered RAG (Retrieval-Augmented Generation) assistant built f
 
 https://github.com/user-attachments/assets/900deef5-d684-44f8-9781-a9492f51c21f
 
-> **Demo:** A live conversation with the voice agent — the user asks a question, the system retrieves relevant documents, and the bot responds with a spoken answer in real time.
->
-> *To add the demo video on GitHub: open an issue, drag `diagrams/rec.mov` into the comment box, copy the generated URL, and replace the placeholder link above.*
-
 ---
 
 ## Tech Stack
