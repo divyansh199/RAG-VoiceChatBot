@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+export AWS_PAGER=""
 
 # Configuration
 CLUSTER_NAME="rag-voice-agent-cluster"
