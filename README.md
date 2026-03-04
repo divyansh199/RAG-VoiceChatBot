@@ -2,7 +2,7 @@
 
 A real-time voice-powered RAG (Retrieval-Augmented Generation) assistant built for industrial support workflows. Human call-center agents speak to an AI that retrieves answers from an equipment-specific knowledge base and responds with natural voice — all in real time over WebSocket.
 
-https://github.com/user-attachments/assets/placeholder
+https://github.com/divyansh199/RAG-VoiceChatBot/blob/main/diagrams/rec.mov
 
 > **Demo:** A live conversation with the voice agent — the user asks a question, the system retrieves relevant documents, and the bot responds with a spoken answer in real time.
 >
