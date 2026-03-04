@@ -58,6 +58,7 @@ else
         --launch-type FARGATE \
         --network-configuration "awsvpcConfiguration={subnets=[$PRIVATE_SUBNET_1,$PRIVATE_SUBNET_2],securityGroups=[$BACKEND_SG],assignPublicIp=DISABLED}" \
         --load-balancers targetGroupArn=$BACKEND_TG_ARN,containerName=rag-voice-agent-backend-container,containerPort=8000 \
+        --health-check-grace-period-seconds 120 \
         --region "$REGION"
 fi
 

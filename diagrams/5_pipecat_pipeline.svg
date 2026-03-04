@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1200" font-family="'Segoe UI', system-ui, -apple-system, sans-serif">
+  <defs>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="rgba(0,0,0,0.12)"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="1200" rx="20" fill="#FFF8DC"/>
+  <rect x="10" y="10" width="880" height="1180" rx="16" fill="#FFF8DC" stroke="#E8D8A0" stroke-width="1.5"/>
+
+  <!-- ========== TITLE ========== -->
+  <text x="450" y="50" text-anchor="middle" fill="#1a1a2e" font-size="26" font-weight="700">Pipecat Voice AI Pipeline</text>
+  <text x="450" y="72" text-anchor="middle" fill="#777" font-size="12">How frames flow through each processor in the RAG Voice Agent</text>
+
+  <!-- ========== USER SPEECH arrow ========== -->
+  <line x1="450" y1="88" x2="450" y2="115" stroke="#333" stroke-width="2"/>
+  <polygon points="443,110 450,122 457,110" fill="#333"/>
+  <text x="490" y="106" fill="#333" font-size="15" font-weight="600">User Speech</text>
+
+  <!-- ========== 1. TRANSPORT INPUT ========== -->
+  <rect x="300" y="125" width="300" height="50" rx="8" fill="#B3D4FC" stroke="#7FB3E0" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="450" y="155" text-anchor="middle" fill="#1a3a5c" font-size="15" font-weight="600">Transport: Input</text>
+
+  <!-- Arrow + Frame label -->
+  <line x1="450" y1="175" x2="450" y2="210" stroke="#333" stroke-width="2"/>
+  <polygon points="443,205 450,217 457,205" fill="#333"/>
+  <rect x="530" y="181" width="195" height="24" rx="4" fill="white" stroke="#4a86c8" stroke-width="1.2"/>
+  <text x="627" y="198" text-anchor="middle" fill="#4a86c8" font-size="12" font-weight="500">InputAudioRawFrame</text>
+
+  <!-- ========== 2. SILERO VAD ========== -->
+  <rect x="300" y="220" width="300" height="50" rx="8" fill="#B3D4FC" stroke="#7FB3E0" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="450" y="247" text-anchor="middle" fill="#1a3a5c" font-size="14" font-weight="600">Silero VAD</text>
+  <text x="450" y="263" text-anchor="middle" fill="#3a6a9c" font-size="10">Voice Activity Detection  |  stop_secs=0.2</text>
+
+  <!-- Arrow + Frame label -->
+  <line x1="450" y1="270" x2="450" y2="305" stroke="#333" stroke-width="2"/>
+  <polygon points="443,300 450,312 457,300" fill="#333"/>
+  <rect x="530" y="276" width="195" height="24" rx="4" fill="white" stroke="#4a86c8" stroke-width="1.2"/>
+  <text x="627" y="293" text-anchor="middle" fill="#4a86c8" font-size="12" font-weight="500">InputAudioRawFrame</text>
+
+  <!-- ========== 3. SMART TURN ANALYZER ========== -->
+  <rect x="300" y="315" width="300" height="50" rx="8" fill="#D4C4F0" stroke="#B0A0D0" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="450" y="342" text-anchor="middle" fill="#3a2a6c" font-size="14" font-weight="600">Smart Turn Analyzer V3</text>
+  <text x="450" y="358" text-anchor="middle" fill="#5a4a8c" font-size="10">Detects when user finishes speaking (not just a pause)</text>
+
+  <!-- Arrow + Frame label -->
+  <line x1="450" y1="365" x2="450" y2="400" stroke="#333" stroke-width="2"/>
+  <polygon points="443,395 450,407 457,395" fill="#333"/>
+  <rect x="530" y="371" width="195" height="24" rx="4" fill="white" stroke="#4a86c8" stroke-width="1.2"/>
+  <text x="627" y="388" text-anchor="middle" fill="#4a86c8" font-size="12" font-weight="500">InputAudioRawFrame</text>
+
+  <!-- ========== 4. RTVI PROCESSOR ========== -->
+  <rect x="300" y="410" width="300" height="50" rx="8" fill="#333" stroke="#555" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="450" y="440" text-anchor="middle" fill="white" font-size="15" font-weight="700">RTVI Processor</text>
+
+  <!-- LEFT arrow: Send Events to Client -->
+  <line x1="298" y1="435" x2="145" y2="435" stroke="#333" stroke-width="2"/>
+  <polygon points="150,428 138,435 150,442" fill="#333"/>
+  <text x="220" y="425" text-anchor="middle" fill="#333" font-size="11" font-weight="600">Send Events to Client</text>
+
+  <!-- Events box -->
+  <rect x="30" y="455" width="220" height="115" rx="8" fill="#2a2a2a" stroke="#555" stroke-width="1" filter="url(#shadow)"/>
+  <text x="140" y="477" text-anchor="middle" fill="#38ef7d" font-size="10" font-weight="600">RTVI Events:</text>
+  <text x="45" y="495" fill="#ccc" font-size="9.5">BotReady - bot initialized, sends greeting</text>
+  <text x="45" y="511" fill="#ccc" font-size="9.5">UserTranscript - interim + final speech text</text>
+  <text x="45" y="527" fill="#ccc" font-size="9.5">BotLlmText - streaming response tokens</text>
+  <text x="45" y="543" fill="#ccc" font-size="9.5">Metrics - TTFB, processing time</text>
+
+  <!-- Arrow down + Frame label -->
+  <line x1="450" y1="460" x2="450" y2="495" stroke="#333" stroke-width="2"/>
+  <polygon points="443,490 450,502 457,490" fill="#333"/>
+  <rect x="530" y="466" width="195" height="24" rx="4" fill="white" stroke="#4a86c8" stroke-width="1.2"/>
+  <text x="627" y="483" text-anchor="middle" fill="#4a86c8" font-size="12" font-weight="500">InputAudioRawFrame</text>
+
+  <!-- ========== 5. STT SERVICE ========== -->
+  <rect x="300" y="505" width="300" height="55" rx="8" fill="#FFD4A0" stroke="#E8B070" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="450" y="532" text-anchor="middle" fill="#5a3a10" font-size="15" font-weight="600">STTService</text>
+  <text x="450" y="550" text-anchor="middle" fill="#7a5a30" font-size="10">Deepgram  |  Diarization enabled  |  Real-time streaming</text>
+
+  <!-- Arrow + Frame label -->
+  <line x1="450" y1="560" x2="450" y2="600" stroke="#333" stroke-width="2"/>
+  <polygon points="443,595 450,607 457,595" fill="#333"/>
+  <rect x="530" y="568" width="195" height="24" rx="4" fill="white" stroke="#4a86c8" stroke-width="1.2"/>
+  <text x="627" y="585" text-anchor="middle" fill="#4a86c8" font-size="12" font-weight="500">TranscriptionFrame</text>
+
+  <!-- ========== 6. CONTEXT AGGREGATOR USER ========== -->
+  <rect x="300" y="610" width="300" height="55" rx="8" fill="#B8E6C8" stroke="#80C8A0" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="450" y="635" text-anchor="middle" fill="#1a5a30" font-size="14" font-weight="600">Context Aggregator:</text>
+  <text x="450" y="655" text-anchor="middle" fill="#2a7a40" font-size="13" font-weight="500">User Response</text>
+
+  <!-- Arrow + Frame label -->
+  <line x1="450" y1="665" x2="450" y2="705" stroke="#333" stroke-width="2"/>
+  <polygon points="443,700 450,712 457,700" fill="#333"/>
+  <rect x="515" y="673" width="240" height="24" rx="4" fill="white" stroke="#4a86c8" stroke-width="1.2"/>
+  <text x="635" y="690" text-anchor="middle" fill="#4a86c8" font-size="12" font-weight="500">OpenAILLMContextFrame</text>
+
+  <!-- ========== 7. LLM SERVICE ========== -->
+  <rect x="300" y="715" width="300" height="55" rx="8" fill="#FFE8A0" stroke="#E8D070" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="450" y="742" text-anchor="middle" fill="#5a4a10" font-size="15" font-weight="600">LLMService</text>
+  <text x="450" y="760" text-anchor="middle" fill="#7a6a30" font-size="10">OpenAI GPT-4o-mini  |  Streaming responses</text>
+
+  <!-- LLM output arrow + Frame label -->
+  <line x1="450" y1="770" x2="450" y2="810" stroke="#333" stroke-width="2"/>
+  <polygon points="443,805 450,817 457,805" fill="#333"/>
+  <rect x="515" y="778" width="155" height="24" rx="4" fill="white" stroke="#4a86c8" stroke-width="1.2"/>
+  <text x="592" y="795" text-anchor="middle" fill="#4a86c8" font-size="12" font-weight="500">LLMTextFrame</text>
+
+  <!-- Example text -->
+  <text x="152" y="792" fill="#555" font-size="14" font-style="italic" font-weight="500">"Hey, How can I help you"</text>
+
+  <!-- ========== 8. TTS SERVICE ========== -->
+  <rect x="300" y="820" width="300" height="55" rx="8" fill="#FFB8B8" stroke="#E89090" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="450" y="847" text-anchor="middle" fill="#5a1a1a" font-size="15" font-weight="600">TTSService</text>
+  <text x="450" y="865" text-anchor="middle" fill="#7a3a3a" font-size="10">ElevenLabs  |  Natural voice synthesis  |  Low-latency streaming</text>
+
+  <!-- Arrow + Frame labels -->
+  <line x1="450" y1="875" x2="450" y2="925" stroke="#333" stroke-width="2"/>
+  <polygon points="443,920 450,932 457,920" fill="#333"/>
+  <rect x="530" y="880" width="195" height="24" rx="4" fill="white" stroke="#4a86c8" stroke-width="1.2"/>
+  <text x="627" y="897" text-anchor="middle" fill="#4a86c8" font-size="12" font-weight="500">TTSAudioRawFrame</text>
+  <rect x="540" y="906" width="160" height="24" rx="4" fill="white" stroke="#4a86c8" stroke-width="1.2"/>
+  <text x="620" y="923" text-anchor="middle" fill="#4a86c8" font-size="12" font-weight="500">TTSTextFrame</text>
+
+  <!-- ========== 9. TRANSPORT OUTPUT ========== -->
+  <rect x="300" y="940" width="300" height="50" rx="8" fill="#B3D4FC" stroke="#7FB3E0" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="450" y="970" text-anchor="middle" fill="#1a3a5c" font-size="15" font-weight="600">Transport: Output</text>
+
+  <!-- Arrow + Frame label -->
+  <line x1="450" y1="990" x2="450" y2="1025" stroke="#333" stroke-width="2"/>
+  <polygon points="443,1020 450,1032 457,1020" fill="#333"/>
+  <rect x="515" y="996" width="240" height="24" rx="4" fill="white" stroke="#4a86c8" stroke-width="1.2"/>
+  <text x="635" y="1013" text-anchor="middle" fill="#4a86c8" font-size="12" font-weight="500">Audio over WebSocket (Protobuf)</text>
+
+  <!-- ========== 10. CONTEXT AGGREGATOR ASSISTANT ========== -->
+  <rect x="300" y="1035" width="300" height="55" rx="8" fill="#B8E6C8" stroke="#80C8A0" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="450" y="1060" text-anchor="middle" fill="#1a5a30" font-size="14" font-weight="600">Context Aggregator:</text>
+  <text x="450" y="1080" text-anchor="middle" fill="#2a7a40" font-size="13" font-weight="500">Assistant Response</text>
+
+  <!-- Loop back arrow (left side) -->
+  <path d="M 298 1062 L 265 1062 L 265 637 L 298 637" fill="none" stroke="#2a7a40" stroke-width="2" stroke-dasharray="6 3"/>
+  <polygon points="294,630 306,637 294,644" fill="#2a7a40"/>
+  <text x="251" y="870" text-anchor="middle" fill="#2a7a40" font-size="10" font-weight="600" transform="rotate(-90, 251, 870)">Maintains full conversation history</text>
+
+  <!-- Final output -->
+  <line x1="450" y1="1090" x2="450" y2="1115" stroke="#333" stroke-width="2"/>
+  <polygon points="443,1110 450,1122 457,1110" fill="#333"/>
+  <text x="450" y="1145" text-anchor="middle" fill="#333" font-size="14" font-weight="600">User hears the response</text>
+
+  <!-- Footer -->
+  <text x="450" y="1180" text-anchor="middle" fill="#aaa" font-size="10">Voice Agent  |  Pipecat Framework  |  Architecture Diagram</text>
+</svg>

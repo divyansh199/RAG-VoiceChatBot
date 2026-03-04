@@ -16,6 +16,7 @@ env:
   ECS_TASK_DEFINITION_FRONTEND: ${{ secrets.ECS_TASK_DEFINITION_FRONTEND }}
   CONTAINER_NAME_BACKEND: ${{ secrets.CONTAINER_NAME_BACKEND }}
   CONTAINER_NAME_FRONTEND: ${{ secrets.CONTAINER_NAME_FRONTEND }}
+  AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
 
 permissions:
   contents: read
@@ -40,6 +41,13 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Replace placeholders in task definitions
+        run: |
+          sed -i 's/<AWS_ACCOUNT_ID>/${{ env.AWS_ACCOUNT_ID }}/g' .github/workflows/task-definition-backend.json
+          sed -i 's/<AWS_REGION>/${{ env.AWS_REGION }}/g' .github/workflows/task-definition-backend.json
+          sed -i 's/<AWS_ACCOUNT_ID>/${{ env.AWS_ACCOUNT_ID }}/g' .github/workflows/task-definition-frontend.json
+          sed -i 's/<AWS_REGION>/${{ env.AWS_REGION }}/g' .github/workflows/task-definition-frontend.json
 
       # ------------------------------------------------------------------
       # Build and Push Backend

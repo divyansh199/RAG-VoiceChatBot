@@ -4,11 +4,11 @@
     "requiresCompatibilities": ["FARGATE"],
     "cpu": "256",
     "memory": "512",
-    "executionRoleArn": "arn:aws:iam::147853513208:role/rag-voice-agent-execution-role",
+    "executionRoleArn": "arn:aws:iam::<AWS_ACCOUNT_ID>:role/rag-voice-agent-execution-role",
     "containerDefinitions": [
         {
             "name": "rag-voice-agent-backend-container",
-            "image": "147853513208.dkr.ecr.us-east-1.amazonaws.com/rag-voice-agent-backend:latest",
+            "image": "<AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/rag-voice-agent-backend:latest",
             "portMappings": [
                 {
                     "containerPort": 8000,
@@ -18,36 +18,36 @@
             "environment": [
                 {
                     "name": "DB_NAME",
-                    "value": "rag_voice_agent_db"
+                    "value": "live_db"
                 }
             ],
             "secrets": [
                 {
                     "name": "MONGO_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:147853513208:secret:rag-voice-agent-secrets:MONGO_URL::"
+                    "valueFrom": "arn:aws:secretsmanager:<AWS_REGION>:<AWS_ACCOUNT_ID>:secret:rag-voice-agent-secrets:MONGO_URL::"
                 },
                 {
                     "name": "DEEPGRAM_API_KEY",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:147853513208:secret:rag-voice-agent-secrets:DEEPGRAM_API_KEY::"
+                    "valueFrom": "arn:aws:secretsmanager:<AWS_REGION>:<AWS_ACCOUNT_ID>:secret:rag-voice-agent-secrets:DEEPGRAM_API_KEY::"
                 },
                 {
                     "name": "OPENAI_API_KEY",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:147853513208:secret:rag-voice-agent-secrets:OPENAI_API_KEY::"
+                    "valueFrom": "arn:aws:secretsmanager:<AWS_REGION>:<AWS_ACCOUNT_ID>:secret:rag-voice-agent-secrets:OPENAI_API_KEY::"
                 },
                 {
                     "name": "GOOGLE_API_KEY",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:147853513208:secret:rag-voice-agent-secrets:GOOGLE_API_KEY::"
+                    "valueFrom": "arn:aws:secretsmanager:<AWS_REGION>:<AWS_ACCOUNT_ID>:secret:rag-voice-agent-secrets:GOOGLE_API_KEY::"
                 },
                 {
                     "name": "ELEVENLABS_API_KEY",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:147853513208:secret:rag-voice-agent-secrets:ELEVENLABS_API_KEY::"
+                    "valueFrom": "arn:aws:secretsmanager:<AWS_REGION>:<AWS_ACCOUNT_ID>:secret:rag-voice-agent-secrets:ELEVENLABS_API_KEY::"
                 }
             ],
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
                     "awslogs-group": "/ecs/rag-voice-agent-backend",
-                    "awslogs-region": "us-east-1",
+                    "awslogs-region": "<AWS_REGION>",
                     "awslogs-stream-prefix": "ecs"
                 }
             },
@@ -55,8 +55,8 @@
                 "command": ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/health').read()\""],
                 "interval": 30,
                 "timeout": 10,
-                "retries": 3,
-                "startPeriod": 40
+                "retries": 5,
+                "startPeriod": 120
             }
         }
     ]
